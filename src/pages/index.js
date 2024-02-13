@@ -14,12 +14,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Image
+        {/* <Image
           src={beforeGif}
           width={300}
           height={300}
           alt="two ghosts"
-        />
+        /> */}
         <HeartButton />
       </main>
     </>
