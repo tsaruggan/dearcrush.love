@@ -1,5 +1,8 @@
 import Head from "next/head";
+import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
+import beforeGif from '../../assets/before.gif'
+import HeartButton from "@/components/HeartButton";
 
 export default function Home() {
   return (
@@ -11,7 +14,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>Hello, world</h1>
+        <Image
+          src={beforeGif}
+          width={300}
+          height={300}
+          alt="two ghosts"
+        />
+        <HeartButton />
       </main>
     </>
   );
