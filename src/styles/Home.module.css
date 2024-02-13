@@ -1,9 +1,33 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
 }
 
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 1rem; /* Adjust as needed for spacing between buttons */
+}
+
+@media (min-width: 768px) {
+  .valentineGif {
+    width: 500px;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .valentineGif {
+    width: 100%;
+    height: auto;
+  }
+}
