@@ -33,11 +33,11 @@
 
 @media (max-width: 767px) {
   .main {
-    padding: 3rem;
+    padding: 1rem;
   }
 
   .valentineGif {
-    margin-top: 10rem;
+    margin-top: 35%;
     width: 100%;
     height: auto;
   }
