@@ -25,10 +25,6 @@ export default function Home() {
               alt="two ghosts hugging, made by saru & tam"
               className={styles.valentineGif}
             />
-            <div className={styles.buttonRow}>
-              <button onClick={() => setYesPressed(true)}>Yes</button>
-              <button>No</button>
-            </div>
           </div>
           ) : (
           <div className={`flex items-center ${styles.buttonsContainer}`}>

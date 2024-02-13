@@ -2,9 +2,15 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 6rem;
   min-height: 100vh;
+  background: rgb(176,222,242);
+  background: linear-gradient(344deg, rgba(176,222,242,1) 0%, rgba(255,247,205,1) 100%);
+}
+
+.valentineGif {
+  margin: 2rem;
 }
 
 .buttonsContainer {
@@ -26,7 +32,12 @@
 }
 
 @media (max-width: 767px) {
+  .main {
+    padding: 3rem;
+  }
+
   .valentineGif {
+    margin-top: 10rem;
     width: 100%;
     height: auto;
   }
