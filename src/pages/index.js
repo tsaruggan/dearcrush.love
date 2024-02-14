@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
+
 import beforeGif from '../../assets/before.gif'
 import afterGif from '../../assets/after.gif'
+import greenHeart from '../../assets/greenHeart.png'
+import pinkHeart from '../../assets/pinkHeart.png'
+
 import HeartButton from "../components/HeartButton";
 import { useState } from "react";
 
@@ -67,13 +71,13 @@ export default function Home() {
               {/* <button onClick={() => setYesPressed(true)}>Yes</button>
               <button>No</button> */}
               <HeartButton 
+                image={greenHeart}
                 buttonText={yesText}
-                hue={defaultYesHue}
                 onClick={() => setYesPressed(true)}
               />
               <HeartButton 
+                image={pinkHeart}
                 buttonText={noTexts[noIndex]}
-                hue={noHue}
                 onClick={onNoButtonClick}
               />
             </div>
