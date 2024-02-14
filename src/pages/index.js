@@ -16,12 +16,9 @@ const defaultNoText = "NO";
 const noTextAfter = "OKAY FINE"
 
 const messages = [
-  "HELL NAH",
-  "YOU SURE?",
-  "BEEN DYING TO ASK :(", 
-  "DON'T GHOST ME",
-  "BOOOOO",
-  "OKAY FINE"
+  "BE MY BOO",
+  "I'VE BEEN DYING TO ASK",
+  "WHY NOT"
 ];
 
 const quicksand = Quicksand({ subsets: ['latin'] })
@@ -67,6 +64,9 @@ export default function Home() {
               alt="one ghost asking another 'will you be my valentine?'"
               className={styles.valentineGif}
             />
+
+            <span className={styles.message}>{messages[noIndex].toLowerCase()}</span>
+            
             <div className={styles.buttonRow}>
               <HeartButton 
                 image={greenHeart}
