@@ -16,9 +16,13 @@ const defaultNoText = "NO";
 const noTextAfter = "OKAY FINE"
 
 const messages = [
-  "BE MY BOO",
-  "I'VE BEEN DYING TO ASK",
-  "WHY NOT"
+  "be my boo",
+  "i've been dying to ask you",
+  "pls don't ghost me",
+  "are you sure?",
+  "please please please",
+  "you're the phantom of my opera",
+  "boooooo"
 ];
 
 const quicksand = Quicksand({ subsets: ['latin'] })

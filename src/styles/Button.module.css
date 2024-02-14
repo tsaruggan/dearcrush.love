@@ -34,6 +34,8 @@
     border: none;
     cursor: pointer;
     transform: translateZ(0);
+    /* padding-bottom: 100px; */
+    /* vertical-align: middle; */
 }
 
 .heartButtonContainer {
@@ -44,12 +46,11 @@
     width: 100px;
     height: 100px;
     background: transparent;
-    
 }
 
 .buttonText {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
