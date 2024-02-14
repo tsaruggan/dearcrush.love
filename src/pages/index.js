@@ -2,6 +2,8 @@ import Head from "next/head";
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 
+import Meta from '../components/Meta';
+
 import beforeGif from '../../assets/before.gif'
 import afterGif from '../../assets/after.gif'
 import greenHeart from '../../assets/greenHeart.png'
@@ -30,6 +32,7 @@ const messages = [
   "we can be like romeo and ghouliet",
   "till death do us part (so basically never)",
   "boooooo",
+  "don’t need a ouija board to sense our connection",
   "i’ll haunt you forever ❤️"
 ];
 
@@ -54,12 +57,17 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>dearcrush.love</title>
+      {/* <Head>
+        <title>send this to your crush 💌</title>
         <meta name="description" content="send this to your crush" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
+      <Meta
+        title="send this to your crush 💌"
+        description="digital valentine's day card"
+        image="../../public/social.jpg"
+      />
       <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
           <div className={`flex items-center ${styles.buttonsContainer}`}>
