@@ -11,6 +11,10 @@ const Meta = ({ title, description, image }) => (
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dearcrush.love" />
     <link rel="icon" href="/favicon.ico" />
+    <meta name="twitter:card" content="two ghosts" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`/images/${image}`} />
   </Head>
 );
 
