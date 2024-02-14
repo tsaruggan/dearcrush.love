@@ -41,8 +41,8 @@
     position: relative;
     border: none;
     cursor: pointer;
-    width: 175px;
-    height: 175px;
+    width: 100px;
+    height: 100px;
     background: transparent;
     
 }
@@ -53,7 +53,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: bolder;
     color: #b63b3f;
     display: inline-block;

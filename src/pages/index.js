@@ -11,8 +11,11 @@ import HeartButton from "../components/HeartButton";
 import { Quicksand } from "next/font/google";
 import { useState } from "react";
 
-const yesText = "BE MY BOO";
-const noTexts = [
+const defaultYesText = "YES";
+const defaultNoText = "NO";
+const noTextAfter = "OKAY FINE"
+
+const messages = [
   "HELL NAH",
   "YOU SURE?",
   "BEEN DYING TO ASK :(", 
@@ -21,27 +24,21 @@ const noTexts = [
   "OKAY FINE"
 ];
 
-const defaultYesHue = 100;
-const defaultNoHue = 0;
-
 const quicksand = Quicksand({ subsets: ['latin'] })
 
 export default function Home() {
   const [yesPressed, setYesPressed] = useState(false);
   const [noIndex, setNoIndex] = useState(0);
-  const [noHue, setNoHue] = useState(defaultNoHue);
+  const [noText, setNoText] = useState(defaultNoText);
 
   const onNoButtonClick = (e) => {
     // console.log(e);
-    if (noIndex == noTexts.length - 1) {
+    if (noIndex == messages.length - 1) {
       setYesPressed(true);
     } else {
-      if (noIndex + 1 == noTexts.length - 1) {
-        setNoHue(defaultYesHue);
-      } else {
-        setNoHue((defaultYesHue * 0.70 - defaultNoHue) / (noTexts.length - 1) * (noIndex + 1));
+      if (noIndex + 1 == messages.length - 1) {
+        setNoText(noTextAfter);
       }
-      
       setNoIndex(noIndex + 1);
     }
   }
@@ -71,16 +68,14 @@ export default function Home() {
               className={styles.valentineGif}
             />
             <div className={styles.buttonRow}>
-              {/* <button onClick={() => setYesPressed(true)}>Yes</button>
-              <button>No</button> */}
               <HeartButton 
                 image={greenHeart}
-                buttonText={yesText}
+                buttonText={defaultYesText}
                 onClick={() => setYesPressed(true)}
               />
               <HeartButton 
-                image={pinkHeart}
-                buttonText={noTexts[noIndex]}
+                image={noIndex == messages.length-1 ? greenHeart : pinkHeart}
+                buttonText={noText}
                 onClick={onNoButtonClick}
               />
             </div>

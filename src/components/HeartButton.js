@@ -1,5 +1,4 @@
 import styles from "@/styles/Button.module.css";
-import heart from '../../assets/heart.png'
 import { Quicksand } from "next/font/google";
 import { useState } from "react";
 
