@@ -29,11 +29,12 @@ const messages = [
   "ur the danny to my phantom",
   "insidious? let's talk about insidi–us",
   "you got me acting paranormal",
+  "it's scary how much i want you",
   "haunt me with your presence bae",
-  "we can be like romeo and ghouliet",
-  "till death do us part (so basically never)",
   "boooooo",
-  // "don’t need a ouija board to sense our connection",
+  "she polter on my geist till i ectoplasm",
+  "we could be like romeo and ghouliet",
+  "till death do us part (so basically never)",
   "i’ll haunt you forever ❤️"
 ];
 
@@ -58,16 +59,10 @@ export default function Home() {
 
   return (
     <>
-      {/* <Head>
-        <title>send this to your crush 💌</title>
-        <meta name="description" content="send this to your crush" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head> */}
       <Meta
         title="send this to your crush 💌"
         description="digital valentine's day card"
-        image="social.jpg"
+        image="social.png"
       />
       <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
