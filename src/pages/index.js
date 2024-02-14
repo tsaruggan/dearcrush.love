@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import beforeGif from '../../assets/before.gif'
 import afterGif from '../../assets/after.gif'
 import HeartButton from "../components/HeartButton";
+import { Quicksand } from "next/font/google";
 import { useState } from "react";
 
 const yesText = "BE MY BOO";
@@ -18,6 +19,8 @@ const noTexts = [
 
 const defaultYesHue = 100;
 const defaultNoHue = 0;
+
+const quicksand = Quicksand({ subsets: ['latin'] })
 
 export default function Home() {
   const [yesPressed, setYesPressed] = useState(false);
@@ -47,7 +50,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
           <div className={`flex items-center ${styles.buttonsContainer}`}>
             <Image

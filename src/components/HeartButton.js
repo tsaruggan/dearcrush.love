@@ -1,6 +1,9 @@
 import styles from "@/styles/Button.module.css";
 import heart from '../../assets/heart.png'
+import { Quicksand } from "next/font/google";
 import { useState } from "react";
+
+const quicksand = Quicksand({ subsets: ['latin'] })
 
 export default function HeartButton({ buttonText, hue, onClick }) {
     const [isClicked, setIsClicked] = useState(false);
@@ -26,7 +29,7 @@ export default function HeartButton({ buttonText, hue, onClick }) {
                     className={styles.heartImage} 
                     style={{ filter: `hue-rotate(${hue}deg) saturate(20%) brightness(180%)`, transform: `translateZ(0)`}}
                 />
-                <span className={styles.buttonText}>{buttonText.toUpperCase()}</span>
+                <span className={`${styles.buttonText} ${quicksand.className}`}>{buttonText.toUpperCase()}</span>
             </div>
         </button>
     );
