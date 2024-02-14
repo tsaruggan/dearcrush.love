@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 
 import Meta from '../components/Meta';
-import socialImage from '../../public/social.jpg';
+// import socialImage from '../../public/social.jpg';
 
 import beforeGif from '../../assets/before.gif'
 import afterGif from '../../assets/after.gif'
@@ -33,7 +33,7 @@ const messages = [
   "we can be like romeo and ghouliet",
   "till death do us part (so basically never)",
   "boooooo",
-  "don’t need a ouija board to sense our connection",
+  // "don’t need a ouija board to sense our connection",
   "i’ll haunt you forever ❤️"
 ];
 
@@ -67,7 +67,7 @@ export default function Home() {
       <Meta
         title="send this to your crush 💌"
         description="digital valentine's day card"
-        image={socialImage}
+        image="social.jpg"
       />
       <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
