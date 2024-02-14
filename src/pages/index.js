@@ -62,14 +62,14 @@ export default function Home() {
       <Meta
         title="send this to your crush 💌"
         description="digital valentine's day card"
-        image="social.png"
+        image="social.jpeg"
       />
       <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
           <div className={`flex items-center ${styles.buttonsContainer}`}>
             <Image
               src={afterGif}
-              alt="two ghosts hugging, made by saru & tam"
+              alt="the ghosts hard launch"
               className={styles.valentineGif}
             />
           </div>
@@ -77,7 +77,7 @@ export default function Home() {
           <div className={`flex items-center ${styles.buttonsContainer}`}>
             <Image
               src={beforeGif}
-              alt="one ghost asking another 'will you be my valentine?'"
+              alt="two ghosts that are deeply enamoured with each other and are consumed by the thoughts of being together romantically. one proposes to the other in a heartfelt confession of love on valentine's day that pulls at the heart strings of the audience in a way that the titanic movie could never.'"
               className={styles.valentineGif}
             />
 
