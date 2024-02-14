@@ -17,12 +17,20 @@ const noTextAfter = "OKAY FINE"
 
 const messages = [
   "be my boo",
+  "please",
   "i've been dying to ask you",
   "pls don't ghost me",
-  "are you sure?",
-  "please please please",
-  "you're the phantom of my opera",
-  "boooooo"
+  "but ur so boo-tiful",
+  "you can be my spooky pookie wookie",
+  "we could be soulmates ;)",
+  "ur the danny to my phantom",
+  "insidious? let's talk about insidi–us",
+  "you got me acting paranormal",
+  "haunt me with your presence bae",
+  "we can be like romeo and ghouliet",
+  "till death do us part (so basically never)",
+  "boooooo",
+  "i’ll haunt you forever ❤️"
 ];
 
 const quicksand = Quicksand({ subsets: ['latin'] })
@@ -69,7 +77,7 @@ export default function Home() {
               className={styles.valentineGif}
             />
 
-            <span className={styles.message}>{messages[noIndex].toLowerCase()}</span>
+            <span className={styles.message}>{messages[noIndex]}</span>
             
             <div className={styles.buttonRow}>
               <HeartButton 
