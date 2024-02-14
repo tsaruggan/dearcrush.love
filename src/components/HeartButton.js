@@ -1,5 +1,9 @@
 import styles from "@/styles/Button.module.css";
+import heart from '../../assets/heart.png'
+import { Quicksand } from "next/font/google";
 import { useState } from "react";
+
+const quicksand = Quicksand({ subsets: ['latin'] })
 
 export default function HeartButton({ image, buttonText, onClick }) {
     const [isClicked, setIsClicked] = useState(false);
@@ -19,7 +23,7 @@ export default function HeartButton({ image, buttonText, onClick }) {
                     src={image.src} 
                     className={styles.heartImage} 
                 />
-                <span className={styles.buttonText}>{buttonText.toUpperCase()}</span>
+                <span className={`${styles.buttonText} ${quicksand.className}`}>{buttonText.toUpperCase()}</span>
             </div>
         </button>
     );
