@@ -3,14 +3,14 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  padding: 6rem;
+  padding-top: min(100px, 1rem);
   min-height: 100vh;
   background: rgb(176,222,242);
   background: linear-gradient(344deg, rgba(176,222,242,1) 0%, rgba(255,247,205,1) 100%);
 }
 
 .valentineGif {
-  margin: 2rem;
+  /* margin: 2rem; */
 }
 
 .buttonsContainer {
@@ -21,12 +21,13 @@
 
 .buttonRow {
   display: flex;
-  gap: 1rem; /* Adjust as needed for spacing between buttons */
+  /* gap: 1rem;  */
+  gap: 40px;
 }
 
 @media (min-width: 768px) {
   .valentineGif {
-    width: 500px;
+    width: min(500px, 50vw);
     height: auto;
   }
 }

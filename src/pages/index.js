@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 import beforeGif from '../../assets/before.gif'
 import afterGif from '../../assets/after.gif'
-import HeartButton from "@/components/HeartButton";
+import HeartButton from "../components/HeartButton";
 import { useState } from "react";
 
 export default function Home() {
@@ -34,8 +34,18 @@ export default function Home() {
               className={styles.valentineGif}
             />
             <div className={styles.buttonRow}>
-              <button onClick={() => setYesPressed(true)}>Yes</button>
-              <button>No</button>
+              {/* <button onClick={() => setYesPressed(true)}>Yes</button>
+              <button>No</button> */}
+              <HeartButton 
+                buttonText={"YES"}
+                hue={100}
+                onClick={() => setYesPressed(true)}
+              />
+              <HeartButton 
+                buttonText={"NO"}
+                hue={0}
+                onClick={() => console.log("NO")}
+              />
             </div>
           </div>
           )}
