@@ -9,7 +9,7 @@ export default function HeartButton({ buttonText, hue, onClick }) {
         setIsClicked(true);
         setTimeout(() => {
           setIsClicked(false);
-        }, 300); // Adjust the delay time to match your animation duration
+        }, 200); // Adjust the delay time to match your animation duration
         onClick();
     };
 
@@ -19,12 +19,12 @@ export default function HeartButton({ buttonText, hue, onClick }) {
                 <img 
                     src={heart.src} 
                     className={styles.shadow} 
-                    style={{ filter: `hue-rotate(${hue}deg) saturate(20%) brightness(160%)`}}
+                    style={{ filter: `hue-rotate(${hue}deg) saturate(20%) brightness(160%)`, transform: `translateZ(0)`}}
                 />
                 <img 
                     src={heart.src} 
                     className={styles.heartImage} 
-                    style={{ filter: `hue-rotate(${hue}deg) saturate(20%) brightness(180%)`}}
+                    style={{ filter: `hue-rotate(${hue}deg) saturate(20%) brightness(180%)`, transform: `translateZ(0)`}}
                 />
                 <span className={styles.buttonText}>{buttonText.toUpperCase()}</span>
             </div>

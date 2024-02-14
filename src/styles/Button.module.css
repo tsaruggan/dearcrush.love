@@ -1,25 +1,31 @@
 @keyframes dodgeAnimation {
     0% {
-      transform: rotate(0deg) skewX(0deg);
+      transform: rotate(0deg) skewX(0deg) translateZ(0);
+      -webkit-transform: rotate(0deg) skewX(0deg) translateZ(0);
     }
     50% {
-      transform: rotateX(-40deg) rotateY(20deg) ;
+      transform: rotateX(40deg) rotateY(20deg) translateZ(0);
+      -webkit-transform: rotateX(40deg) rotateY(20deg) translateZ(0);
     }
     100% {
-      transform: rotate(0deg) skewX(0deg);
+      transform: rotate(0deg) skewX(0deg) translateZ(0);
+      -webkit-transform: rotate(0deg) skewX(0deg) translateZ(0);
     }
 }
 
 @keyframes dodgeShadowAnimation {
     0% {
-      transform: rotate(0deg) skewX(0deg);
+      transform: rotate(0deg) skewX(0deg) translateZ(0);
+      -webkit-transform: rotate(0deg) skewX(0deg) translateZ(0);
     }
     50% {
-      transform: rotateX(40deg) rotateY(20deg) scale3d(2);
+      transform: rotateX(-40deg) rotateY(20deg) scale3d(2) translateZ(0);
+      -webkit-transform: rotateX(-40deg) rotateY(20deg) scale3d(2) translateZ(0);
       top: 18px;
     }
     100% {
-      transform: rotate(0deg) skewX(0deg);
+      transform: rotate(0deg) skewX(0deg) translateZ(0);
+      -webkit-transform: rotate(0deg) skewX(0deg) translateZ(0);
     }
 }
 
@@ -27,15 +33,18 @@
     background: transparent;
     border: none;
     cursor: pointer;
+    transform: translateZ(0);
 }
 
 .heartButtonContainer {
+    transform: translateZ(0);
     position: relative;
     border: none;
     cursor: pointer;
     width: 175px;
     height: 175px;
     background: transparent;
+    
 }
 
 .buttonText {
@@ -73,9 +82,9 @@
 }
 
 .clicked .heartButtonContainer {
-    animation: dodgeAnimation 0.3s ease; /* Apply the dodge animation on hover */
+    animation: dodgeAnimation 0.2s ease-in-out; /* Apply the dodge animation on hover */
 }
 
 .clicked .shadow {
-    animation: dodgeShadowAnimation 0.3s ease; /* Apply the dodge animation on hover */
+    animation: dodgeShadowAnimation 0.2s ease-in-out; /* Apply the dodge animation on hover */
 }
