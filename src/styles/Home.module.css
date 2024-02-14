@@ -1,9 +1,44 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
   padding: 6rem;
   min-height: 100vh;
+  background: rgb(176,222,242);
+  background: linear-gradient(344deg, rgba(176,222,242,1) 0%, rgba(255,247,205,1) 100%);
 }
 
+.valentineGif {
+  margin: 2rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 1rem; /* Adjust as needed for spacing between buttons */
+}
+
+@media (min-width: 768px) {
+  .valentineGif {
+    width: 500px;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: 1rem;
+  }
+
+  .valentineGif {
+    margin-top: 35%;
+    width: 100%;
+    height: auto;
+  }
+}
