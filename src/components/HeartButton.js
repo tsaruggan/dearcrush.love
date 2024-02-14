@@ -1,9 +1,20 @@
 import styles from "@/styles/Button.module.css";
 import heart from '../../assets/heart.png'
+import { useState } from "react";
 
 export default function HeartButton({ buttonText, hue, onClick }) {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const handleButtonClick = () => {
+        setIsClicked(true);
+        setTimeout(() => {
+          setIsClicked(false);
+        }, 300); // Adjust the delay time to match your animation duration
+        onClick();
+    };
+
     return (
-        <button className={styles.heartButton} onClick={onClick} >
+        <button className={`${styles.heartButton} ${isClicked ? styles.clicked : ''}`} onClick={handleButtonClick} >
             <div className={styles.heartButtonContainer}>
                 <img 
                     src={heart.src} 
@@ -20,3 +31,5 @@ export default function HeartButton({ buttonText, hue, onClick }) {
         </button>
     );
 }
+
+const getRandomValue = (min, max) => Math.random() * (max - min) + min;

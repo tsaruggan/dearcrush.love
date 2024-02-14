@@ -1,3 +1,28 @@
+@keyframes dodgeAnimation {
+    0% {
+      transform: rotate(0deg) skewX(0deg);
+    }
+    50% {
+      transform: rotateX(-40deg) rotateY(20deg) ;
+    }
+    100% {
+      transform: rotate(0deg) skewX(0deg);
+    }
+}
+
+@keyframes dodgeShadowAnimation {
+    0% {
+      transform: rotate(0deg) skewX(0deg);
+    }
+    50% {
+      transform: rotateX(40deg) rotateY(20deg) scale3d(2);
+      top: 18px;
+    }
+    100% {
+      transform: rotate(0deg) skewX(0deg);
+    }
+}
+
 .heartButton {
     background: transparent;
     border: none;
@@ -44,5 +69,13 @@
     z-index: 1;
     /* play with below values to adjust 3D effect of candy hearts */
     top: 14px;
-    transform: scaleY(1.05);
+    transform: scaleY(1.08);
+}
+
+.clicked .heartButtonContainer {
+    animation: dodgeAnimation 0.3s ease; /* Apply the dodge animation on hover */
+}
+
+.clicked .shadow {
+    animation: dodgeShadowAnimation 0.3s ease; /* Apply the dodge animation on hover */
 }
