@@ -6,8 +6,38 @@ import afterGif from '../../assets/after.gif'
 import HeartButton from "../components/HeartButton";
 import { useState } from "react";
 
+const yesText = "BE MY BOO";
+const noTexts = [
+  "HELL NAH",
+  "YOU SURE?",
+  "BEEN DYING TO ASK :(", 
+  "DON'T GHOST ME",
+  "BOOOOO",
+  "OKAY FINE"
+];
+
+const defaultYesHue = 100;
+const defaultNoHue = 0;
+
 export default function Home() {
   const [yesPressed, setYesPressed] = useState(false);
+  const [noIndex, setNoIndex] = useState(0);
+  const [noHue, setNoHue] = useState(defaultNoHue);
+
+  const onNoButtonClick = (e) => {
+    // console.log(e);
+    if (noIndex == noTexts.length - 1) {
+      setYesPressed(true);
+    } else {
+      if (noIndex + 1 == noTexts.length - 1) {
+        setNoHue(defaultYesHue);
+      } else {
+        setNoHue((defaultYesHue * 0.70 - defaultNoHue) / (noTexts.length - 1) * (noIndex + 1));
+      }
+      
+      setNoIndex(noIndex + 1);
+    }
+  }
 
   return (
     <>
@@ -37,14 +67,14 @@ export default function Home() {
               {/* <button onClick={() => setYesPressed(true)}>Yes</button>
               <button>No</button> */}
               <HeartButton 
-                buttonText={"YES"}
-                hue={100}
+                buttonText={yesText}
+                hue={defaultYesHue}
                 onClick={() => setYesPressed(true)}
               />
               <HeartButton 
-                buttonText={"NO"}
-                hue={0}
-                onClick={() => console.log("NO")}
+                buttonText={noTexts[noIndex]}
+                hue={noHue}
+                onClick={onNoButtonClick}
               />
             </div>
           </div>

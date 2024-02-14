@@ -22,7 +22,7 @@
 .buttonRow {
   display: flex;
   /* gap: 1rem;  */
-  gap: 40px;
+  gap: min(24px, 1rem);
 }
 
 @media (min-width: 768px) {

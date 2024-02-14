@@ -1,12 +1,15 @@
 .heartButton {
     background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .heartButtonContainer {
     position: relative;
     border: none;
     cursor: pointer;
-    width: 150px;
+    width: 175px;
+    height: 175px;
     background: transparent;
 }
 
@@ -15,7 +18,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 3;
     font-size: 16pt;
     font-family: Helvetica;
     font-weight: bolder;
@@ -23,8 +26,23 @@
     display: inline-block;
 }
 
-.heartImage {
-    object-fit: cover;
+.heartImage,
+.shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    /* filter: hue-rotate(80deg) saturate(20%) brightness(180%); */
+    height: 100%;
+    object-fit: cover;
+}
+
+.heartImage {
+    z-index: 2;
+}
+
+.shadow {
+    z-index: 1;
+    /* play with below values to adjust 3D effect of candy hearts */
+    top: 14px;
+    transform: scaleY(1.05);
 }
