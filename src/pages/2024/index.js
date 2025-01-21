@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 
