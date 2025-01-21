@@ -3,10 +3,10 @@ import styles from "@/styles/Home.module.css";
 
 import Meta from '../../components/Meta';
 
-import beforeGif from '../../../assets/before.gif'
-import afterGif from '../../../assets/after.gif'
-import greenHeart from '../../../assets/greenHeart.png'
-import pinkHeart from '../../../assets/pinkHeart.png'
+import beforeGif from '../../../assets/2024/before.gif'
+import afterGif from '../../../assets/2024/after.gif'
+import greenHeart from '../../../assets/2024/greenHeart.png'
+import pinkHeart from '../../../assets/2024/pinkHeart.png'
 
 import HeartButton from "../../components/HeartButton";
 import { Quicksand } from "next/font/google";
