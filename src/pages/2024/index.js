@@ -1,16 +1,14 @@
-import Head from "next/head";
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 
-import Meta from '../components/Meta';
-// import socialImage from '../../public/social.jpg';
+import Meta from '../../components/Meta';
 
-import beforeGif from '../../assets/before.gif'
-import afterGif from '../../assets/after.gif'
-import greenHeart from '../../assets/greenHeart.png'
-import pinkHeart from '../../assets/pinkHeart.png'
+import beforeGif from '../../../assets/before.gif'
+import afterGif from '../../../assets/after.gif'
+import greenHeart from '../../../assets/greenHeart.png'
+import pinkHeart from '../../../assets/pinkHeart.png'
 
-import HeartButton from "../components/HeartButton";
+import HeartButton from "../../components/HeartButton";
 import { Quicksand } from "next/font/google";
 import { useState } from "react";
 
@@ -62,7 +60,7 @@ export default function Home() {
       <Meta
         title="send this to your crush 💌"
         description="digital valentine's day card"
-        image="social.jpeg"
+        image="social-2024.jpeg"
       />
       <main className={`${styles.main} ${quicksand.className}`}>
           { yesPressed ? (
