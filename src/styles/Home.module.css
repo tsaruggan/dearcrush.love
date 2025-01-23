@@ -16,8 +16,8 @@
   height: 100vh;
   text-align: center;
   flex-direction: column;
-  /* padding: 0 20px;
-  box-sizing: border-box; */
+  padding: 0 20px;
+  font-size: 1.5rem;
 }
 
 .valentineGif {
