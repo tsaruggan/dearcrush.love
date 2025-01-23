@@ -6,8 +6,8 @@ import styles from "@/styles/Home.module.css";
 import Meta from '../../components/Meta';
 import DrawingCanvas from '../../components/DrawingCanvas';
 
-import beforeGif from '../../assets/2025/placeholder-bee.png'
-import afterGif from '../../assets/2025/placeholder-bee.png'
+import beforeGif from '../../../assets/2025/placeholder-bee.png'
+import afterGif from '../../../assets/2025/placeholder-bee.png'
 
 import { useState } from "react";
 
