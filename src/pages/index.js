@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/react-in-jsx-scope */
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
 
 import Meta from '../components/Meta';
+import DrawingCanvas from '../components/DrawingCanvas';
 
 import beforeGif from '../../assets/2025/placeholder-bee.png'
 import afterGif from '../../assets/2025/placeholder-bee.png'
@@ -48,7 +50,10 @@ export default function Home() {
             />
 
             <span className={styles.message}>{"will you bee my valentine?"}</span>
-            
+            <div>
+              <h1>Welcome to the Drawing App!</h1>
+              <DrawingCanvas />
+            </div>
             <div className={styles.buttonRow}>
               yes
               no
