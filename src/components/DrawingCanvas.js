@@ -102,6 +102,9 @@ function DrawingCanvas() {
         onMouseMove={draw}
         onMouseUp={endDrawing}
         onMouseOut={endDrawing}
+        style={{
+            touchAction: 'none',
+        }}
       />
 
     </div>
