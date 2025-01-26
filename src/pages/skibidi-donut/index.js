@@ -6,8 +6,10 @@ import styles from "@/styles/Home.module.css";
 import Meta from '../../components/Meta';
 import DrawingCanvas from '../../components/DrawingCanvas';
 
-import beforeGif from '../../../assets/2025/placeholder-bee.png'
-import afterGif from '../../../assets/2025/placeholder-bee.png'
+import beforeGif from '../../../public/assets/2025/placeholder-bee.png'
+import afterGif from '../../../public/assets/2025/placeholder-bee.png'
+import yesPng from '../../../public/assets/2025/placeholder-yes.png'
+import noPng from '../../../public/assets/2025/placeholder-no.png'
 
 import { useState } from "react";
 
@@ -19,7 +21,23 @@ const messages = [
 ];
 
 export default function Home() {
-    const [yesPressed, setYesCircled] = useState(false);
+    const canvasWidth = 500;
+    const canvasHeight = 400;
+    const [circledYes, setCircledYes] = useState(false);
+    const [circledNo, setCircledNo] = useState(false);
+    const [noPosition, setNoPosition] = useState({ x: canvasWidth/4 * 3, y: canvasHeight/3 });
+
+    const handleCircledYes = (circled) => {
+      setCircledYes(circled);
+    }
+
+    const handleCircledNo = (circled) => {
+      setCircledNo(circled);
+    }
+
+    const moveNoPosition = () => {
+      setNoPosition({ x: 40, y: 50 }); // Example of changing position
+    };
 
     // set conditions for circling yes or no
     // if yes circled, continue to after gif
@@ -33,7 +51,7 @@ export default function Home() {
             image="social-2024.jpeg"
           />
           <main className={`${styles.main}`}>
-          { yesPressed ? (
+          { circledYes ? (
           <div className={`flex items-center ${styles.buttonsContainer}`}>
             <Image
               src={afterGif}
@@ -51,12 +69,14 @@ export default function Home() {
 
             <span className={styles.message}>{"will you bee my valentine?"}</span>
             <div>
-              <h1>Welcome to the Drawing App!</h1>
-              <DrawingCanvas />
-            </div>
-            <div className={styles.buttonRow}>
-              yes
-              no
+              <DrawingCanvas
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
+                noPosX={noPosition.x}
+                noPosY={noPosition.y}
+                selectedYes={handleCircledYes}
+                selectedNo={handleCircledNo}
+              />
             </div>
           </div>
           )}
