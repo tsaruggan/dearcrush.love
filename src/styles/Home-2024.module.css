@@ -5,7 +5,8 @@
   align-items: flex-start;
   padding-top: min(100px, 1rem);
   min-height: 100vh;
-  background: rgb(255, 197, 217);
+  background: rgb(176,222,242);
+  background: linear-gradient(344deg, rgba(176,222,242,1) 0%, rgba(255,247,205,1) 100%);
 }
 
 .underConstruction {
@@ -17,6 +18,10 @@
   flex-direction: column;
   padding: 0 20px;
   font-size: 1.5rem;
+}
+
+.valentineGif {
+  /* margin: 2rem; */
 }
 
 .buttonsContainer {
@@ -51,8 +56,6 @@
 }
 
 .message {
-  padding-top: 24px;
   padding-bottom: 20px;
   height: 50px;
-  font-size: 24px;
 }

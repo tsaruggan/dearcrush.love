@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Image from 'next/image'
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home-2024.module.css";
 
 import Meta from '../../components/Meta';
 

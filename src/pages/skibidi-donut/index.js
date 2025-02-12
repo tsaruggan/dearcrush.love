@@ -6,11 +6,12 @@ import styles from "@/styles/Home.module.css";
 import Meta from '../../components/Meta';
 import DrawingCanvas from '../../components/DrawingCanvas';
 
-import beforeGif from '../../../public/assets/2025/placeholder-bee.png'
-import afterGif from '../../../public/assets/2025/placeholder-bee.png'
+import beforeGif from '../../../public/assets/2025/bee_my_valentine.gif'
+import afterGif from '../../../public/assets/2025/yipee_bee.gif'
 import yesPng from '../../../public/assets/2025/placeholder-yes.png'
 import noPng from '../../../public/assets/2025/placeholder-no.png'
 
+import { Comfortaa } from "next/font/google";
 import { useState } from "react";
 
 const messages = [
@@ -19,6 +20,8 @@ const messages = [
   "ooof...\nthat stings",
   "you are bee-you-tiful"
 ];
+
+const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Home() {
     const canvasWidth = 500;
@@ -50,7 +53,7 @@ export default function Home() {
             description="digital valentine's day card"
             image="social-2024.jpeg"
           />
-          <main className={`${styles.main}`}>
+          <main className={`${styles.main} ${comfortaa.className}`}>
           { circledYes ? (
           <div className={`flex items-center ${styles.buttonsContainer}`}>
             <Image
@@ -67,7 +70,7 @@ export default function Home() {
               className={styles.valentineGif}
             />
 
-            <span className={styles.message}>{"will you bee my valentine?"}</span>
+            <span className={styles.message}>{"circle one"}</span>
             <div>
               <DrawingCanvas
                 canvasWidth={canvasWidth}
