@@ -25,10 +25,8 @@
   align-items: center;
 }
 
-.buttonRow {
-  display: flex;
-  /* gap: 1rem;  */
-  gap: min(24px, 1rem);
+.circleOne {
+  margin-top: min(5vh, 100px);
 }
 
 @media (min-width: 768px) {

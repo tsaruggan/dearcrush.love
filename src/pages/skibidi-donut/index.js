@@ -8,8 +8,7 @@ import DrawingCanvas from '../../components/DrawingCanvas';
 
 import beforeGif from '../../../public/assets/2025/bee_my_valentine.gif'
 import afterGif from '../../../public/assets/2025/yipee_bee.gif'
-import yesPng from '../../../public/assets/2025/placeholder-yes.png'
-import noPng from '../../../public/assets/2025/placeholder-no.png'
+import circleOne from '../../../public/assets/2025/circle-one.png'
 
 import { Comfortaa } from "next/font/google";
 import { useState } from "react";
@@ -59,7 +58,7 @@ export default function Home() {
             <Image
               src={afterGif}
               alt="yipee bee"
-              className={styles.valentineGif}
+              className={styles.circleOne}
             />
           </div>
           ) : (
@@ -69,8 +68,13 @@ export default function Home() {
               alt="messenger bee coming up to you and asking if you would bee my valentine"
               className={styles.valentineGif}
             />
-
-            <span className={styles.message}>{"circle one"}</span>
+            <Image
+              src={circleOne}
+              alt="(circle one)"
+              className={styles.circleOne}
+              style={{ width: '250px', height: 'auto' }}
+            />
+            {/* <span className={styles.message}>{"circle one"}</span> */}
             <div>
               <DrawingCanvas
                 canvasWidth={canvasWidth}

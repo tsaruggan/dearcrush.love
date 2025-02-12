@@ -27,8 +27,8 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
   const INTERSECTION_THRESHOLD = 8; // closeness threshold to consider intersection
   
   // yes / no image positioning
-  const yesImageSrc = '/assets/2025/placeholder-yes.png';
-  const noImageSrc = '/assets/2025/placeholder-no.png';
+  const yesImageSrc = '/assets/2025/yes.png';
+  const noImageSrc = '/assets/2025/no.png';
   const yesImagePos = { x: canvasWidth / 4, y: canvasHeight / 3 };
   const noImagePos = { x: noPosX, y: noPosY };
   const [yesImage, setYesImage] = useState(null);
