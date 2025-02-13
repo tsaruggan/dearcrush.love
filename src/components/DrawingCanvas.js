@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from "@/styles/2025.module.css";
 
-function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
+function DrawingCanvas({ selectedYes, selectedNo }) {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
   const [drawing, setDrawing] = useState(false);
@@ -28,18 +28,12 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
   const INTERSECTION_THRESHOLD = 8; // closeness threshold to consider intersection
 
   // yes / no image positioning
-  const buttonDim = 100;
   const yesImageSrc = '/assets/2025/yes.png';
   const noImageSrc = '/assets/2025/no.png';
-  // const yesImagePos = { x: canvasWidth / 4, y: canvasHeight / 3 };
-  // const noImagePos = { x: noPosX, y: noPosY };
   const [yesImage, setYesImage] = useState(null);
   const [noImage, setNoImage] = useState(null);
-  const [imagesLoaded, setImagesLoaded] = useState(false); // New state to track loading status
-
   const [yesImagePos, setYesImagePos] = useState(null);
   const [noImagePos, setNoImagePos] = useState(null);
-
 
   const loadImages = async () => {
     const yesImg = new Image();
@@ -71,9 +65,9 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
     canvas.height = window.innerHeight;
 
     // Set initial positions
-    const yPosition = Math.max(canvas.height / 2 - buttonDim / 2, 360 + buttonDim / 2);
-    const xPositionYes = canvas.width * 3 / 10 - buttonDim / 2;
-    const xPositionNo = canvas.width * 7 / 10 - buttonDim / 2;
+    const yPosition = Math.max(canvas.height / 2 - IMAGE_SIZE / 2, 360 + IMAGE_SIZE / 2);
+    const xPositionYes = canvas.width * 3 / 10 - IMAGE_SIZE / 2;
+    const xPositionNo = canvas.width * 7 / 10 - IMAGE_SIZE / 2;
     setYesImagePos({ x: xPositionYes, y: yPosition });
     setNoImagePos({ x: xPositionNo, y: yPosition });
 
@@ -92,8 +86,8 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw images at fixed size without scaling
-      ctx.drawImage(yesImage, yesImagePos.x, yesImagePos.y, buttonDim, buttonDim);
-      ctx.drawImage(noImage, noImagePos.x, noImagePos.y, buttonDim, buttonDim);
+      ctx.drawImage(yesImage, yesImagePos.x, yesImagePos.y, IMAGE_SIZE, IMAGE_SIZE);
+      ctx.drawImage(noImage, noImagePos.x, noImagePos.y, IMAGE_SIZE, IMAGE_SIZE);
     }
   };
 
@@ -187,7 +181,6 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
       if (Math.abs(currentPos.x - yesImagePos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - yesImagePos.y) < IMAGE_SIZE / 2) {
         setStartYes(getDistance(currentPos, yesImagePos));
         setStartNo(null);
-        console.log("START YES");
       }
     } else if (!intersected) {
       checkIntersected();
@@ -196,7 +189,6 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, yesImagePos)) {
           setCircledYes(true)
-          console.log("CIRCLED YES");
         }
       }
     }
@@ -204,10 +196,9 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
 
   const checkCircledNo = () => {
     if (startNo === null) {
-      if (Math.abs(currentPos.x - noPosX) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - noPosY) < IMAGE_SIZE / 2) {
+      if (Math.abs(currentPos.x - noImagePos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - noImagePos.y) < IMAGE_SIZE / 2) {
         setStartNo(getDistance(currentPos, noImagePos));
         setStartYes(null);
-        console.log("START NO");
       }
     } else if (!intersected) {
       checkIntersected();
@@ -216,7 +207,6 @@ function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, noImagePos)) {
           setCircledNo(true)
-          console.log("CIRCLED NO");
         }
       }
     }

@@ -15,10 +15,12 @@ export default function Home(props) {
     const [noPosition, setNoPosition] = useState({ x: canvasWidth / 4 * 3, y: canvasHeight / 3 });
     const handleCircledYes = (circled) => {
         setCircledYes(circled);
+        console.log("Yes");
     }
 
     const handleCircledNo = (circled) => {
         setCircledNo(circled);
+        console.log("No");
     }
     return (
         <>
@@ -38,10 +40,6 @@ export default function Home(props) {
                     </div>
                 </main>
                 <DrawingCanvas
-                    canvasWidth={canvasWidth}
-                    canvasHeight={canvasHeight}
-                    noPosX={noPosition.x}
-                    noPosY={noPosition.y}
                     selectedYes={handleCircledYes}
                     selectedNo={handleCircledNo}
                 />
