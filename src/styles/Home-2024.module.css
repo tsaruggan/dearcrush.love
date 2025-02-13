@@ -9,16 +9,6 @@
   background: linear-gradient(344deg, rgba(176,222,242,1) 0%, rgba(255,247,205,1) 100%);
 }
 
-.underConstruction {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-  flex-direction: column;
-  padding: 0 20px;
-  font-size: 1.5rem;
-}
 
 .valentineGif {
   /* margin: 2rem; */

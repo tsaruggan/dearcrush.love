@@ -58,7 +58,7 @@ export default function Home() {
             <Image
               src={afterGif}
               alt="yipee bee"
-              className={styles.circleOne}
+              className={styles.valentineGif}
             />
           </div>
           ) : (
