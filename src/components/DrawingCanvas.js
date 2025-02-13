@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
+import styles from "@/styles/2025.module.css";
 
-function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes, selectedNo }) {
+function DrawingCanvas({ noPosX, noPosY, selectedYes, selectedNo }) {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
   const [drawing, setDrawing] = useState(false);
@@ -20,71 +21,95 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
   const [startNo, setStartNo] = useState(null);
 
   // constants related to circle selection
-  const SELECTED_THRESHOLD = IMAGE_SIZE/5; // closeness threshold for closing circle
-  const ALIGN_THRESHOLD = IMAGE_SIZE/3; // threshold for aligning circle centre
+  const SELECTED_THRESHOLD = IMAGE_SIZE / 5; // closeness threshold for closing circle
+  const ALIGN_THRESHOLD = IMAGE_SIZE / 3; // threshold for aligning circle centre
   const PATH_SAMPLING = 3; // sample list of points on path (optimization)
   const MIN_PATH = IMAGE_SIZE * 0.6; // minimum length of path to be a circle
   const INTERSECTION_THRESHOLD = 8; // closeness threshold to consider intersection
-  
+
   // yes / no image positioning
+  const buttonDim = 100;
   const yesImageSrc = '/assets/2025/yes.png';
   const noImageSrc = '/assets/2025/no.png';
-  const yesImagePos = { x: canvasWidth / 4, y: canvasHeight / 3 };
-  const noImagePos = { x: noPosX, y: noPosY };
+  // const yesImagePos = { x: canvasWidth / 4, y: canvasHeight / 3 };
+  // const noImagePos = { x: noPosX, y: noPosY };
   const [yesImage, setYesImage] = useState(null);
   const [noImage, setNoImage] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(false); // New state to track loading status
 
-  useEffect(() => {
-    // Load images and track when they are fully loaded
+  const [yesImagePos, setYesImagePos] = useState(null);
+  const [noImagePos, setNoImagePos] = useState(null);
+
+
+  const loadImages = async () => {
     const yesImg = new Image();
     const noImg = new Image();
-    yesImg.src = yesImageSrc;
-    noImg.src = noImageSrc;
 
-    const handleImageLoad = () => {
-      // Once both images are loaded, set the state and trigger canvas drawing
-      if (yesImg.complete && noImg.complete) {
-        setYesImage(yesImg);
-        setNoImage(noImg);
-        setImagesLoaded(true);  // Set imagesLoaded to true
-      }
+    // Wrap image loading in a Promise
+    const loadImage = (img, src) => {
+      return new Promise((resolve) => {
+        img.src = src;
+        img.onload = () => resolve(img);
+      });
     };
 
-    yesImg.onload = handleImageLoad;
-    noImg.onload = handleImageLoad;
+    // Wait for both images to load
+    const loadedYesImage = await loadImage(yesImg, yesImageSrc);
+    const loadedNoImage = await loadImage(noImg, noImageSrc);
 
-    // Set up the canvas after images are loaded
+    // Set the images after they are loaded
+    setYesImage(loadedYesImage);
+    setNoImage(loadedNoImage);
+  };
+
+  const loadCanvas = async () => {
     const canvas = canvasRef.current;
-    if (canvas) {
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-      const ctx = canvas.getContext('2d');
-      setContext(ctx);
-      selectedYes(circledYes);
-      selectedNo(circledNo);
+    const ctx = canvas.getContext("2d");
 
-      if (imagesLoaded) {
-        drawImages(ctx);  // Draw images if they are loaded
-      }
-    }
+    // Set canvas size to window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Cleanup
-    return () => {
-      // In case the component is unmounted
-      yesImg.onload = null;
-      noImg.onload = null;
-    };
-  }, [imagesLoaded, circledYes, circledNo]); // Dependencies
+    // Set initial positions
+    const yPosition = Math.max(canvas.height / 2 - buttonDim / 2, 360 + buttonDim / 2);
+    const xPositionYes = canvas.width * 3 / 10 - buttonDim / 2;
+    const xPositionNo = canvas.width * 7 / 10 - buttonDim / 2;
+    setYesImagePos({ x: xPositionYes, y: yPosition });
+    setNoImagePos({ x: xPositionNo, y: yPosition });
 
-  // Function to draw images on canvas
-  const drawImages = (ctx) => {
-    if (yesImage && noImage) {
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); // Clear canvas before redrawing
-      ctx.drawImage(yesImage, yesImagePos.x - IMAGE_SIZE/2, yesImagePos.y  - IMAGE_SIZE/2, IMAGE_SIZE, IMAGE_SIZE);
-      ctx.drawImage(noImage, noImagePos.x  - IMAGE_SIZE/2, noImagePos.y  - IMAGE_SIZE/2, IMAGE_SIZE, IMAGE_SIZE);
+    setContext(ctx);
+  }
+
+  const drawImages = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // Set canvas size to window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    if (context && yesImage && noImage && yesImagePos && noImagePos) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw images at fixed size without scaling
+      ctx.drawImage(yesImage, yesImagePos.x, yesImagePos.y, buttonDim, buttonDim);
+      ctx.drawImage(noImage, noImagePos.x, noImagePos.y, buttonDim, buttonDim);
     }
   };
+
+  useEffect(() => {
+    const setup = async () => {
+      await loadImages();
+      await loadCanvas()
+    };
+    setup();
+  }, []);
+
+  useEffect(() => {
+    if (context && yesImage && noImage && yesImagePos && noImagePos) {
+      drawImages();
+    }
+  }, [context, yesImage, noImage, yesImagePos, noImagePos]);
 
   const getCoordinates = (e) => {
     const canvas = canvasRef.current;
@@ -118,7 +143,7 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
       setDrawing(true);
       setIntersected(false);
       setCurrentPath([]);
-      setCurrentPos({x: x, y: y});
+      setCurrentPos({ x: x, y: y });
     }
   };
 
@@ -130,8 +155,8 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
     context.lineWidth = LINEWIDTH;
     context.lineTo(x, y);
     context.stroke();
-    
-    setCurrentPos({x: x, y: y})
+
+    setCurrentPos({ x: x, y: y })
     checkCircledYes();
     checkCircledNo();
     setCurrentPath((prevPath) => [...prevPath, { x, y }]);
@@ -159,46 +184,46 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
 
   const checkCircledYes = () => {
     if (startYes === null) {
-        if (Math.abs(currentPos.x - yesImagePos.x) < IMAGE_SIZE/2 && Math.abs(currentPos.y - yesImagePos.y) < IMAGE_SIZE/2) {
-            setStartYes(getDistance(currentPos, yesImagePos));
-            setStartNo(null);
-            console.log("START YES");
-        }
+      if (Math.abs(currentPos.x - yesImagePos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - yesImagePos.y) < IMAGE_SIZE / 2) {
+        setStartYes(getDistance(currentPos, yesImagePos));
+        setStartNo(null);
+        console.log("START YES");
+      }
     } else if (!intersected) {
-        checkIntersected();
+      checkIntersected();
     } else {
-        const distance = getDistance(currentPos, currentPath[0]);
-        if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
-          if (compareAverage(currentPath, yesImagePos)) {
-            setCircledYes(true)
-            console.log("CIRCLED YES");
-          }
+      const distance = getDistance(currentPos, currentPath[0]);
+      if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
+        if (compareAverage(currentPath, yesImagePos)) {
+          setCircledYes(true)
+          console.log("CIRCLED YES");
         }
+      }
     }
   }
 
   const checkCircledNo = () => {
     if (startNo === null) {
-        if (Math.abs(currentPos.x - noPosX) < IMAGE_SIZE/2 && Math.abs(currentPos.y - noPosY) < IMAGE_SIZE/2) {
-            setStartNo(getDistance(currentPos, noImagePos));
-            setStartYes(null);
-            console.log("START NO");
-        }
+      if (Math.abs(currentPos.x - noPosX) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - noPosY) < IMAGE_SIZE / 2) {
+        setStartNo(getDistance(currentPos, noImagePos));
+        setStartYes(null);
+        console.log("START NO");
+      }
     } else if (!intersected) {
-        checkIntersected();
+      checkIntersected();
     } else {
-        const distance = getDistance(currentPos, currentPath[0]);
-        if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
-          if (compareAverage(currentPath, noImagePos)) {
-            setCircledNo(true)
-            console.log("CIRCLED NO");
-          }
+      const distance = getDistance(currentPos, currentPath[0]);
+      if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
+        if (compareAverage(currentPath, noImagePos)) {
+          setCircledNo(true)
+          console.log("CIRCLED NO");
         }
+      }
     }
   }
 
   const checkIntersected = () => {
-    let sampledPath = currentPath.slice(0,-5).filter((_, index) => index % PATH_SAMPLING === 0);
+    let sampledPath = currentPath.slice(0, -5).filter((_, index) => index % PATH_SAMPLING === 0);
     const intersection = sampledPath.some((pathValue) => {
       return Math.abs(pathValue.x - currentPos.x) < INTERSECTION_THRESHOLD && Math.abs(pathValue.y - currentPos.y) < INTERSECTION_THRESHOLD
     });
@@ -213,14 +238,11 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
     const ySum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.y, 0);
     const yAvg = ySum / currentPath.length;
     const isAlignedY = Math.abs(yAvg - targetPos.y) < ALIGN_THRESHOLD;
-
-    console.log("X aligned: ", isAlignedX, " xAvg: ", xAvg, " targetPos.x: ", targetPos.x)
-    console.log("Y aligned: ", isAlignedY, " yAvg: ", yAvg, " targetPos.y: ", targetPos.y)
     return isAlignedX && isAlignedY
   }
 
   const getDistance = (p1, p2) => {
-    return Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2);
+    return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
   }
 
   return (
@@ -238,6 +260,7 @@ function DrawingCanvas({ canvasWidth, canvasHeight, noPosX, noPosY, selectedYes,
         style={{
           touchAction: 'none',
         }}
+        className={styles.fullPageCanvas}
       />
     </div>
   );
