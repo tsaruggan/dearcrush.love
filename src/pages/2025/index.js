@@ -8,11 +8,8 @@ import DrawingCanvas from '../../components/DrawingCanvas';
 import beforeGif from '../../../public/assets/2025/bee_my_valentine.gif'
 
 export default function Home(props) {
-    const canvasWidth = 500;
-    const canvasHeight = 400;
     const [circledYes, setCircledYes] = useState(false);
     const [circledNo, setCircledNo] = useState(false);
-    const [noPosition, setNoPosition] = useState({ x: canvasWidth / 4 * 3, y: canvasHeight / 3 });
     const handleCircledYes = (circled) => {
         setCircledYes(circled);
         console.log("Yes");
