@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styles from "@/styles/2025.module.css";
+import styles from "@/styles/Home.module.css";
 
 function DrawingCanvas({ onYes }) {
   const canvasRef = useRef(null);
