@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from "@/styles/2025.module.css";
 
-function DrawingCanvas({ selectedYes, selectedNo }) {
+function DrawingCanvas({ onYes, onNo }) {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
   const [drawing, setDrawing] = useState(false);

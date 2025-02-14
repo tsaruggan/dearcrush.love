@@ -8,15 +8,11 @@ import DrawingCanvas from '../../components/DrawingCanvas';
 import beforeGif from '../../../public/assets/2025/bee_my_valentine.gif'
 
 export default function Home(props) {
-    const [circledYes, setCircledYes] = useState(false);
-    const [circledNo, setCircledNo] = useState(false);
-    const handleCircledYes = (circled) => {
-        setCircledYes(circled);
+    const handleYes = () => {
         console.log("Yes");
     }
 
-    const handleCircledNo = (circled) => {
-        setCircledNo(circled);
+    const handleNo = () => {
         console.log("No");
     }
     return (
@@ -37,8 +33,8 @@ export default function Home(props) {
                     </div>
                 </main>
                 <DrawingCanvas
-                    selectedYes={handleCircledYes}
-                    selectedNo={handleCircledNo}
+                    onYes={handleYes}
+                    onNo={handleNo}
                 />
             </div>
 
