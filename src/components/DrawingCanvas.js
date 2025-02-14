@@ -73,7 +73,7 @@ function DrawingCanvas({ onYes }) {
   }
 
   const initializeImagePositions = (canvasWidth, canvasHeight) => {
-    const yPosition = Math.max(canvasHeight / 2, GIF_SIZE + GIF_PADDING + IMAGE_SIZE / 2);
+    const yPosition = Math.max(canvasHeight * 0.7, GIF_SIZE + GIF_PADDING + IMAGE_SIZE / 2);
     const xPositionYes = canvasWidth * 3 / 10;
     const xPositionNo = canvasWidth * 7 / 10;
     setYesImagePos({ x: xPositionYes, y: yPosition });
@@ -220,7 +220,7 @@ function DrawingCanvas({ onYes }) {
     const yAvg = ySum / currentPath.length;
     const isAlignedY = Math.abs(yAvg - targetPos.y) < align_threshold;
     // console.log('x diff:', Math.abs(xAvg - targetPos.x), 'y diff:', Math.abs(yAvg - targetPos.y))
-    return isAlignedX && isAlignedY
+    return isAlignedX && isAlignedY;
   }
 
   const getDistance = (p1, p2) => {
@@ -237,7 +237,7 @@ function DrawingCanvas({ onYes }) {
     }
 
     let newNoImagePos = randomizeCoordinates();
-    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.25) {
+    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.50 || (getDistance(newNoImagePos, noImagePos) <= IMAGE_SIZE * 1.25)) {
       newNoImagePos = randomizeCoordinates();
     }
 
