@@ -2,6 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
+// import styles from "@/styles/Home.module.css";
 
 import Meta from '../../components/Meta';
 import DrawingCanvas from '../../components/DrawingCanvas';
@@ -24,55 +25,62 @@ const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Home() {
     const [circledYes, setCircledYes] = useState(false);
-    const [circledNo, setCircledNo] = useState(false);
 
     const handleCircledYes = () => {
       setCircledYes(true);
     }
 
-    const handleCircledNo = () => {
-      setCircledNo(true);
+    const renderBefore = () => {
+      return (
+        <div className={styles.container}>
+          <main className={styles.main}>
+              <div className={styles.backgroundContainer}>
+                  <Image
+                      src={beforeGif}
+                      alt="messenger bee coming up to you and asking if you would bee my valentine"
+                      className={styles.backgroundGif}
+                  />
+              </div>
+          </main>
+          <DrawingCanvas
+              onYes={handleCircledYes}
+          />
+        </div>
+      );
     }
 
-    return (
-        <>
-          <Meta
-            title="send this to your crush 💌"
-            description="digital valentine's day card"
-            image="social-2024.jpeg"
-          />
-          <main className={`${styles.main} ${comfortaa.className}`}>
-          { circledYes ? (
-          <div className={`flex items-center ${styles.buttonsContainer}`}>
-            <Image
-              src={afterGif}
-              alt="yipee bee"
-              className={styles.valentineGif}
-            />
-          </div>
-          ) : (
-          <div className={`flex items-center ${styles.buttonsContainer}`}>
-            <Image
-              src={beforeGif}
-              alt="messenger bee coming up to you and asking if you would bee my valentine"
-              className={styles.valentineGif}
-            />
-            <Image
-              src={circleOne}
-              alt="(circle one)"
-              className={styles.circleOne}
-              style={{ width: '250px', height: 'auto' }}
-            />
-            {/* <span className={styles.message}>{"circle one"}</span> */}
-            <div>
-              <DrawingCanvas
-                onYes={handleCircledYes}
-                onNo={handleCircledNo}
-              />
-            </div>
-          </div>
-          )}
-      </main>
-        </>
+    const renderAfter = () => {
+      return (
+        <div className={styles.container}>
+          <main className={styles.main}>
+              <div className={styles.backgroundContainer}>
+                  <Image
+                      src={afterGif}
+                      alt="messenger bee coming up to you and asking if you would bee my valentine"
+                      className={styles.backgroundGif}
+                  />
+              </div>
+          </main>
+        </div>
       );
+    }
+    
+    const renderContent = () => {
+      if (circledYes) {
+        return renderAfter();
+      } else {
+        return renderBefore();
+      }
+    };
+
+    return (
+      <>
+          <Meta
+              title="send this to your crush 💌"
+              description="digital valentine's day card"
+              image="social-2024.jpeg"
+          />
+          {renderContent()}
+      </>
+  );
 }
