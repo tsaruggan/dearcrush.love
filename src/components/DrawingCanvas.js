@@ -16,8 +16,8 @@ function DrawingCanvas({ onYes }) {
   const GIF_PADDING = 24; // padding above before gif
 
   // states corresponding to whether you start to draw yes or no
-  const [startYes, setStartYes] = useState(null);
-  const [startNo, setStartNo] = useState(null);
+  const [startYes, setStartYes] = useState(false);
+  const [startNo, setStartNo] = useState(false);
 
   // const [startPath, setStartPath] = useState(null);
 
@@ -151,8 +151,8 @@ function DrawingCanvas({ onYes }) {
     context.stroke();
 
     setCurrentPos({ x: x, y: y })
-    checkCircledYes();
-    checkCircledNo();
+    checkCircled(startYes, setStartYes, setStartNo, yesImagePos, onYes);
+    checkCircled(startNo, setStartNo, setStartYes, noImagePos, shuffleNoImagePosition);
     setCurrentPath((prevPath) => [...prevPath, { x, y }]);
   };
 
@@ -174,35 +174,17 @@ function DrawingCanvas({ onYes }) {
     setCurrentPath([]);
   };
 
-  const checkCircledYes = () => {
-    if (startYes === null) {
-      if (Math.abs(currentPos.x - yesImagePos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - yesImagePos.y) < IMAGE_SIZE / 2) {
-        setStartYes(getDistance(currentPos, yesImagePos));
-        setStartNo(null);
+  const checkCircled = (startState, setStartState, setOppStartState, targetPos, action) => {
+    if (!startState) {
+      if (Math.abs(currentPos.x - targetPos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - targetPos.y) < IMAGE_SIZE / 2) {
+        setStartState(true);
+        setOppStartState(false);
       }
     } else {
       const distance = getDistance(currentPos, currentPath[0]);
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
-        if (compareAverage(currentPath, yesImagePos)) {
-          console.log("CIRCLED YES")
-          onYes();
-        }
-      }
-    }
-  }
-
-  const checkCircledNo = () => {
-    if (startNo === null) {
-      if (Math.abs(currentPos.x - noImagePos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - noImagePos.y) < IMAGE_SIZE / 2) {
-        setStartNo(getDistance(currentPos, noImagePos));
-        setStartYes(null);
-      }
-    } else {
-      const distance = getDistance(currentPos, currentPath[0]);
-      if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
-        if (compareAverage(currentPath, noImagePos)) {
-          console.log("CIRCLED NO");
-          shuffleNoImagePosition();
+        if (compareAverage(currentPath, targetPos)) {
+          action();
         }
       }
     }
