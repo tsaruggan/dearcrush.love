@@ -11,7 +11,7 @@ function DrawingCanvas({ onYes }) {
   const [currentPos, setCurrentPos] = useState(null);
   const COLOUR = "brown";
   const LINEWIDTH = 3;
-  const IMAGE_SIZE = 125; // dimension of yes/no image
+  const IMAGE_SIZE = 100; // dimension of yes/no image
   const GIF_SIZE = 360; // max height of before gif
   const GIF_PADDING = 24; // padding above before gif
 
@@ -128,10 +128,12 @@ function DrawingCanvas({ onYes }) {
   const getDrawingCoordinates = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
     if (e.touches) {
       return {
-        x: e.touches[0].clientX - rect.left,
-        y: e.touches[0].clientY - rect.top,
+        x: (e.touches[0].clientX - rect.left) * scaleX,
+        y: (e.touches[0].clientY - rect.top) * scaleY,
       };
     } else {
       return {
