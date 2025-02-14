@@ -66,7 +66,7 @@ export default function Home() {
           <Meta
               title="send this to your crush 💌"
               description="digital valentine's day card"
-              image="social-2025.jpeg"
+              image="social-2025.jpg"
           />
           {renderContent()}
       </>
