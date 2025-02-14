@@ -22,9 +22,12 @@ function DrawingCanvas({ onYes }) {
   // const [startPath, setStartPath] = useState(null);
 
   // constants related to circle selection
-  const SELECTED_THRESHOLD = IMAGE_SIZE / 3; // closeness threshold for closing circle
-  const ALIGN_THRESHOLD = IMAGE_SIZE / 2; // threshold for aligning circle centre
-  const MIN_PATH = IMAGE_SIZE * 0.6; // minimum length of path to be a circle
+  const YES_SELECTED_THRESHOLD = IMAGE_SIZE * 0.3; // closeness threshold for closing circle
+  const NO_SELECTED_THRESHOLD = IMAGE_SIZE * 0.9;
+  const YES_ALIGN_THRESHOLD = IMAGE_SIZE * 0.5; // threshold for aligning circle centre
+  const NO_ALIGN_THRESHOLD = IMAGE_SIZE; 
+  const YES_MIN_PATH = IMAGE_SIZE * 0.2; // minimum length of path to be a circle
+  const NO_MIN_PATH = IMAGE_SIZE * 0.3; // minimum length of path to be a circle
 
   // yes / no image positioning
   const yesImageSrc = '/assets/2025/yes.png';
@@ -139,8 +142,8 @@ function DrawingCanvas({ onYes }) {
   };
 
   const initSelection = () => {
-    setStartYes(null);
-    setStartNo(null);
+    setStartYes(false);
+    setStartNo(false);
   }
 
   const startDrawing = (e) => {
@@ -167,8 +170,8 @@ function DrawingCanvas({ onYes }) {
     context.stroke();
 
     setCurrentPos({ x: x, y: y })
-    checkCircled(startYes, setStartYes, setStartNo, yesImagePos, onYes);
-    checkCircled(startNo, setStartNo, setStartYes, noImagePos, shuffleNoImagePosition);
+    checkCircled(startYes, setStartYes, setStartNo, yesImagePos, onYes, YES_SELECTED_THRESHOLD, YES_MIN_PATH, YES_ALIGN_THRESHOLD);
+    checkCircled(startNo, setStartNo, setStartYes, noImagePos, shuffleNoImagePosition, NO_SELECTED_THRESHOLD, NO_MIN_PATH, NO_ALIGN_THRESHOLD);
     setCurrentPath((prevPath) => [...prevPath, { x, y }]);
   };
 
@@ -191,7 +194,7 @@ function DrawingCanvas({ onYes }) {
     setCurrentPath([]);
   };
 
-  const checkCircled = (startState, setStartState, setOppStartState, targetPos, action) => {
+  const checkCircled = (startState, setStartState, setOppStartState, targetPos, action, selected_threshold, min_path, align_threshold) => {
     if (!startState) {
       if (Math.abs(currentPos.x - targetPos.x) < IMAGE_SIZE / 2 && Math.abs(currentPos.y - targetPos.y) < IMAGE_SIZE / 2) {
         setStartState(true);
@@ -199,22 +202,24 @@ function DrawingCanvas({ onYes }) {
       }
     } else {
       const distance = getDistance(currentPos, currentPath[0]);
-      if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
-        if (compareAverage(currentPath, targetPos)) {
+      // console.log(currentPath.length > min_path, distance < selected_threshold)
+      if (currentPath.length > min_path && distance < selected_threshold) {
+        if (compareAverage(currentPath, targetPos, align_threshold)) {
           action();
+          setStartState(false);
         }
       }
     }
   }
 
-  const compareAverage = (currentPath, targetPos) => {
+  const compareAverage = (currentPath, targetPos, align_threshold) => {
     const xSum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.x, 0);
     const xAvg = xSum / currentPath.length;
-    const isAlignedX = Math.abs(xAvg - targetPos.x) < ALIGN_THRESHOLD;
-
+    const isAlignedX = Math.abs(xAvg - targetPos.x) < align_threshold;
     const ySum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.y, 0);
     const yAvg = ySum / currentPath.length;
-    const isAlignedY = Math.abs(yAvg - targetPos.y) < ALIGN_THRESHOLD;
+    const isAlignedY = Math.abs(yAvg - targetPos.y) < align_threshold;
+    // console.log('x diff:', Math.abs(xAvg - targetPos.x), 'y diff:', Math.abs(yAvg - targetPos.y))
     return isAlignedX && isAlignedY
   }
 
