@@ -234,7 +234,7 @@ function DrawingCanvas({ onYes }) {
 
     const randomizeCoordinates = () => {
       let randomX = Math.random() * (canvas.width - IMAGE_SIZE) + IMAGE_SIZE / 2;
-      let randomY = Math.random() * (canvas.height - GIF_SIZE - GIF_PADDING - IMAGE_SIZE / 2) + GIF_SIZE + GIF_PADDING;
+      let randomY = Math.random() * (canvas.height - GIF_SIZE - GIF_PADDING - IMAGE_SIZE) + GIF_SIZE + GIF_PADDING;
       return { x: randomX, y: randomY };
     }
 
