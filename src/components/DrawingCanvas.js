@@ -69,31 +69,43 @@ function DrawingCanvas({ onYes }) {
     canvas.height = window.innerHeight;
 
     // Set initial positions
-    const yPosition = Math.max(canvas.height / 2, GIF_SIZE + GIF_PADDING + IMAGE_SIZE / 2);
-    const xPositionYes = canvas.width * 3 / 10 ;
-    const xPositionNo = canvas.width * 7 / 10;
-    setYesImagePos({ x: xPositionYes, y: yPosition });
-    setNoImagePos({ x: xPositionNo, y: yPosition });
-
+    initializeImagePositions(canvas.width, canvas.height);
+    
     setContext(ctx);
   }
+
+  const initializeImagePositions = (canvasWidth, canvasHeight) => {
+    const yPosition = Math.max(canvasHeight / 2, GIF_SIZE + GIF_PADDING + IMAGE_SIZE / 2);
+    const xPositionYes = canvasWidth * 3 / 10;
+    const xPositionNo = canvasWidth * 7 / 10;
+    setYesImagePos({ x: xPositionYes, y: yPosition });
+    setNoImagePos({ x: xPositionNo, y: yPosition });
+  }
+
 
   const drawImages = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
+    if (!context || !yesImage || !noImage || !yesImagePos || !noImagePos) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw images at their fixed positions based on canvas size
+    ctx.drawImage(yesImage, yesImagePos.x - IMAGE_SIZE / 2, yesImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
+    ctx.drawImage(noImage, noImagePos.x - IMAGE_SIZE / 2, noImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
+  };
+
+  const resizeCanvas = () => {
+    const canvas = canvasRef.current;
+
     // Set canvas size to window size
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    if (context && yesImage && noImage && yesImagePos && noImagePos) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw images at fixed size without scaling
-      ctx.drawImage(yesImage, yesImagePos.x - IMAGE_SIZE / 2, yesImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
-      ctx.drawImage(noImage, noImagePos.x - IMAGE_SIZE / 2, noImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
-    }
-  };
+    // Reset initial positions
+    initializeImagePositions(canvas.width, canvas.height);
+  }
 
   useEffect(() => {
     const setup = async () => {
@@ -101,6 +113,11 @@ function DrawingCanvas({ onYes }) {
       await loadCanvas()
     };
     setup();
+
+    window.addEventListener('resize', resizeCanvas);
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
   }, []);
 
   useEffect(() => {
