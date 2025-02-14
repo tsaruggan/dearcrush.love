@@ -23,27 +23,16 @@ const messages = [
 const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Home() {
-    const canvasWidth = 500;
-    const canvasHeight = 400;
     const [circledYes, setCircledYes] = useState(false);
     const [circledNo, setCircledNo] = useState(false);
-    const [noPosition, setNoPosition] = useState({ x: canvasWidth/4 * 3, y: canvasHeight/3 });
 
-    const handleCircledYes = (circled) => {
-      setCircledYes(circled);
+    const handleCircledYes = () => {
+      setCircledYes(true);
     }
 
-    const handleCircledNo = (circled) => {
-      setCircledNo(circled);
+    const handleCircledNo = () => {
+      setCircledNo(true);
     }
-
-    const moveNoPosition = () => {
-      setNoPosition({ x: 40, y: 50 }); // Example of changing position
-    };
-
-    // set conditions for circling yes or no
-    // if yes circled, continue to after gif
-    // if no is almost circled, move position of no
 
     return (
         <>
@@ -77,12 +66,8 @@ export default function Home() {
             {/* <span className={styles.message}>{"circle one"}</span> */}
             <div>
               <DrawingCanvas
-                canvasWidth={canvasWidth}
-                canvasHeight={canvasHeight}
-                noPosX={noPosition.x}
-                noPosY={noPosition.y}
-                selectedYes={handleCircledYes}
-                selectedNo={handleCircledNo}
+                onYes={handleCircledYes}
+                onNo={handleCircledNo}
               />
             </div>
           </div>

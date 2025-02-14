@@ -23,9 +23,9 @@ function DrawingCanvas({ onYes, onNo }) {
   // const [startPath, setStartPath] = useState(null);
 
   // constants related to circle selection
-  const SELECTED_THRESHOLD = IMAGE_SIZE / 5; // closeness threshold for closing circle
-  const ALIGN_THRESHOLD = IMAGE_SIZE / 3; // threshold for aligning circle centre
-  const PATH_SAMPLING = 3; // sample list of points on path (optimization)
+  const SELECTED_THRESHOLD = IMAGE_SIZE / 3; // closeness threshold for closing circle
+  const ALIGN_THRESHOLD = IMAGE_SIZE / 2; // threshold for aligning circle centre
+  const PATH_SAMPLING = 2; // sample list of points on path (optimization)
   const MIN_PATH = IMAGE_SIZE * 0.6; // minimum length of path to be a circle
   const INTERSECTION_THRESHOLD = 8; // closeness threshold to consider intersection
 
@@ -134,7 +134,7 @@ function DrawingCanvas({ onYes, onNo }) {
   const startDrawing = (e) => {
     if (context) {
       initSelection();
-      const { x, y } = getCoordinates(e);
+      const { x, y } = getDrawingCoordinates(e);
       context.beginPath();
       context.moveTo(x, y);
 
@@ -143,16 +143,12 @@ function DrawingCanvas({ onYes, onNo }) {
       setIntersected(false);
       setCurrentPath([]);
       setCurrentPos({ x: x, y: y });
-
-      // set start path state here
-      if (getDistance({ x: x, y: y }, yesImagePos)) {
-
-      }
     }
   };
 
   const draw = (e) => {
     if (!drawing || !context) return;
+    // console.log("drawing");
 
     const { x, y } = getDrawingCoordinates(e);
     context.strokeStyle = COLOUR;
@@ -176,8 +172,6 @@ function DrawingCanvas({ onYes, onNo }) {
   };
 
   const clearDrawing = () => {
-    if (!imagesLoaded) return; // Don't clear until images are loaded
-
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -192,13 +186,13 @@ function DrawingCanvas({ onYes, onNo }) {
         setStartYes(getDistance(currentPos, yesImagePos));
         setStartNo(null);
       }
-    } else if (!intersected) {
-      checkIntersected();
     } else {
       const distance = getDistance(currentPos, currentPath[0]);
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, yesImagePos)) {
-          setCircledYes(true)
+          console.log("CIRCLED YES")
+          setCircledYes(true);
+          onYes();
         }
       }
     }
@@ -210,13 +204,15 @@ function DrawingCanvas({ onYes, onNo }) {
         setStartNo(getDistance(currentPos, noImagePos));
         setStartYes(null);
       }
-    } else if (!intersected) {
-      checkIntersected();
+    // } else if (!intersected) {
+    //   checkIntersected();
     } else {
       const distance = getDistance(currentPos, currentPath[0]);
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, noImagePos)) {
+          console.log("CIRCLED NO")
           setCircledNo(true)
+          onNo();
         }
       }
     }
@@ -225,7 +221,8 @@ function DrawingCanvas({ onYes, onNo }) {
   const checkIntersected = () => {
     let sampledPath = currentPath.slice(0, -5).filter((_, index) => index % PATH_SAMPLING === 0);
     const intersection = sampledPath.some((pathValue) => {
-      return Math.abs(pathValue.x - currentPos.x) < INTERSECTION_THRESHOLD && Math.abs(pathValue.y - currentPos.y) < INTERSECTION_THRESHOLD
+      return getDistance(pathValue, currentPos) < INTERSECTION_THRESHOLD
+      // return Math.abs(pathValue.x - currentPos.x) < INTERSECTION_THRESHOLD && Math.abs(pathValue.y - currentPos.y) < INTERSECTION_THRESHOLD
     });
     if (intersection) { setIntersected(true); }
   }
@@ -238,6 +235,8 @@ function DrawingCanvas({ onYes, onNo }) {
     const ySum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.y, 0);
     const yAvg = ySum / currentPath.length;
     const isAlignedY = Math.abs(yAvg - targetPos.y) < ALIGN_THRESHOLD;
+    console.log('isAlignedX', isAlignedX, 'xAvg', xAvg, 'targetPos.x', targetPos.x)
+    console.log('isAlignedY', isAlignedY, 'yAvg', yAvg, 'targetPos.y', targetPos.y)
     return isAlignedX && isAlignedY
   }
 
