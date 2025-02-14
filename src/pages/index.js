@@ -44,7 +44,7 @@ export default function Home() {
               <div className={styles.backgroundContainer}>
                   <Image
                       src={afterGif}
-                      alt="messenger bee coming up to you and asking if you would bee my valentine"
+                      alt="messenger bee overcome with great joy after receiving love reciprocated"
                       className={styles.backgroundGif}
                   />
               </div>
