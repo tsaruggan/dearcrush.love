@@ -9,17 +9,14 @@ function DrawingCanvas({ onYes }) {
   // coordinates relating to existing drawing and active cursor
   const [currentPath, setCurrentPath] = useState([]);
   const [currentPos, setCurrentPos] = useState(null);
-  const [intersected, setIntersected] = useState(false);
   const COLOUR = "brown";
   const LINEWIDTH = 3;
   const IMAGE_SIZE = 125; // dimension of yes/no image
   const GIF_SIZE = 360; // max height of before gif
   const GIF_PADDING = 24; // padding above before gif
 
-  // states corresponding to whether yes or no are circled
-  const [circledYes, setCircledYes] = useState(false);
+  // states corresponding to whether you start to draw yes or no
   const [startYes, setStartYes] = useState(null);
-  const [circledNo, setCircledNo] = useState(false);
   const [startNo, setStartNo] = useState(null);
 
   // const [startPath, setStartPath] = useState(null);
@@ -27,9 +24,7 @@ function DrawingCanvas({ onYes }) {
   // constants related to circle selection
   const SELECTED_THRESHOLD = IMAGE_SIZE / 3; // closeness threshold for closing circle
   const ALIGN_THRESHOLD = IMAGE_SIZE / 2; // threshold for aligning circle centre
-  const PATH_SAMPLING = 2; // sample list of points on path (optimization)
   const MIN_PATH = IMAGE_SIZE * 0.6; // minimum length of path to be a circle
-  const INTERSECTION_THRESHOLD = 8; // closeness threshold to consider intersection
 
   // yes / no image positioning
   const yesImageSrc = '/assets/2025/yes.png';
@@ -127,9 +122,7 @@ function DrawingCanvas({ onYes }) {
   };
 
   const initSelection = () => {
-    setCircledYes(false);
     setStartYes(null);
-    setCircledNo(false);
     setStartNo(null);
   }
 
@@ -142,7 +135,6 @@ function DrawingCanvas({ onYes }) {
 
       // set drawing state
       setDrawing(true);
-      setIntersected(false);
       setCurrentPath([]);
       setCurrentPos({ x: x, y: y });
     }
@@ -193,7 +185,6 @@ function DrawingCanvas({ onYes }) {
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, yesImagePos)) {
           console.log("CIRCLED YES")
-          setCircledYes(true);
           onYes();
         }
       }
@@ -211,7 +202,6 @@ function DrawingCanvas({ onYes }) {
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, noImagePos)) {
           console.log("CIRCLED NO");
-          setCircledNo(true);
           shuffleNoImagePosition();
         }
       }
