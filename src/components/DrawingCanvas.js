@@ -204,8 +204,6 @@ function DrawingCanvas({ onYes, onNo }) {
         setStartNo(getDistance(currentPos, noImagePos));
         setStartYes(null);
       }
-    // } else if (!intersected) {
-    //   checkIntersected();
     } else {
       const distance = getDistance(currentPos, currentPath[0]);
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
@@ -218,15 +216,6 @@ function DrawingCanvas({ onYes, onNo }) {
     }
   }
 
-  const checkIntersected = () => {
-    let sampledPath = currentPath.slice(0, -5).filter((_, index) => index % PATH_SAMPLING === 0);
-    const intersection = sampledPath.some((pathValue) => {
-      return getDistance(pathValue, currentPos) < INTERSECTION_THRESHOLD
-      // return Math.abs(pathValue.x - currentPos.x) < INTERSECTION_THRESHOLD && Math.abs(pathValue.y - currentPos.y) < INTERSECTION_THRESHOLD
-    });
-    if (intersection) { setIntersected(true); }
-  }
-
   const compareAverage = (currentPath, targetPos) => {
     const xSum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.x, 0);
     const xAvg = xSum / currentPath.length;
@@ -235,8 +224,6 @@ function DrawingCanvas({ onYes, onNo }) {
     const ySum = currentPath.reduce((accumulator, pathValue) => accumulator + pathValue.y, 0);
     const yAvg = ySum / currentPath.length;
     const isAlignedY = Math.abs(yAvg - targetPos.y) < ALIGN_THRESHOLD;
-    console.log('isAlignedX', isAlignedX, 'xAvg', xAvg, 'targetPos.x', targetPos.x)
-    console.log('isAlignedY', isAlignedY, 'yAvg', yAvg, 'targetPos.y', targetPos.y)
     return isAlignedX && isAlignedY
   }
 
