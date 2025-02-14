@@ -67,7 +67,7 @@ function DrawingCanvas({ onYes, onNo }) {
     canvas.height = window.innerHeight;
 
     // Set initial positions
-    const yPosition = Math.max(canvas.height / 2, 360);
+    const yPosition = Math.max(canvas.height / 2, 360 + IMAGE_SIZE / 2);
     const xPositionYes = canvas.width * 3 / 10 ;
     const xPositionNo = canvas.width * 7 / 10;
     setYesImagePos({ x: xPositionYes, y: yPosition });
@@ -134,7 +134,7 @@ function DrawingCanvas({ onYes, onNo }) {
   const startDrawing = (e) => {
     if (context) {
       initSelection();
-      const { x, y } = getCoordinates(e);
+      const { x, y } = getDrawingCoordinates(e);
       context.beginPath();
       context.moveTo(x, y);
 
@@ -245,6 +245,24 @@ function DrawingCanvas({ onYes, onNo }) {
     return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
   }
 
+  const handleOnClick = (e) => {
+    const canvas = canvasRef.current;
+
+    const randomizeCoordinates = () => {
+      let randomX = Math.random() * (canvas.width - IMAGE_SIZE) + IMAGE_SIZE / 2;
+      let randomY = Math.random() * (canvas.height - 360  - IMAGE_SIZE / 2) + 360;
+      return { x: randomX, y: randomY };
+    }
+
+    let newNoImagePos = randomizeCoordinates();
+    while (getDistance(newNoImagePos, yesImagePos) <= 200) {
+      newNoImagePos = randomizeCoordinates();
+    }
+
+    // console.log(canvas.width, canvas.height);
+    setNoImagePos(newNoImagePos);
+  }
+
   return (
     <div>
       <canvas
@@ -257,6 +275,7 @@ function DrawingCanvas({ onYes, onNo }) {
         onMouseMove={draw}
         onMouseUp={endDrawing}
         onMouseOut={endDrawing}
+        onClick={handleOnClick}
         style={{
           touchAction: 'none',
         }}
