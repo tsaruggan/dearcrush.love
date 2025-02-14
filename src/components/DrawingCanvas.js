@@ -209,8 +209,9 @@ function DrawingCanvas({ onYes }) {
       const distance = getDistance(currentPos, currentPath[0]);
       if (currentPath.length > MIN_PATH && distance < SELECTED_THRESHOLD) {
         if (compareAverage(currentPath, noImagePos)) {
-          console.log("CIRCLED NO")
-          setCircledNo(true)
+          console.log("CIRCLED NO");
+          setCircledNo(true);
+          shuffleNoImagePosition();
         }
       }
     }
@@ -231,12 +232,12 @@ function DrawingCanvas({ onYes }) {
     return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
   }
 
-  const handleOnClick = (e) => {
+  const shuffleNoImagePosition = () => {
     const canvas = canvasRef.current;
 
     const randomizeCoordinates = () => {
       let randomX = Math.random() * (canvas.width - IMAGE_SIZE) + IMAGE_SIZE / 2;
-      let randomY = Math.random() * (canvas.height - GIF_SIZE - IMAGE_SIZE / 2) + 360;
+      let randomY = Math.random() * (canvas.height - GIF_SIZE - IMAGE_SIZE / 2) + GIF_SIZE;
       return { x: randomX, y: randomY };
     }
 
@@ -245,7 +246,6 @@ function DrawingCanvas({ onYes }) {
       newNoImagePos = randomizeCoordinates();
     }
 
-    // console.log(canvas.width, canvas.height);
     setNoImagePos(newNoImagePos);
   }
 
@@ -261,7 +261,6 @@ function DrawingCanvas({ onYes }) {
         onMouseMove={draw}
         onMouseUp={endDrawing}
         onMouseOut={endDrawing}
-        onClick={handleOnClick}
         style={{
           touchAction: 'none',
         }}
