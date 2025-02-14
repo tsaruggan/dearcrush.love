@@ -20,6 +20,8 @@ function DrawingCanvas({ onYes, onNo }) {
   const [circledNo, setCircledNo] = useState(false);
   const [startNo, setStartNo] = useState(null);
 
+  // const [startPath, setStartPath] = useState(null);
+
   // constants related to circle selection
   const SELECTED_THRESHOLD = IMAGE_SIZE / 5; // closeness threshold for closing circle
   const ALIGN_THRESHOLD = IMAGE_SIZE / 3; // threshold for aligning circle centre
@@ -65,9 +67,9 @@ function DrawingCanvas({ onYes, onNo }) {
     canvas.height = window.innerHeight;
 
     // Set initial positions
-    const yPosition = Math.max(canvas.height / 2 - IMAGE_SIZE / 2, 360 + IMAGE_SIZE / 2);
-    const xPositionYes = canvas.width * 3 / 10 - IMAGE_SIZE / 2;
-    const xPositionNo = canvas.width * 7 / 10 - IMAGE_SIZE / 2;
+    const yPosition = Math.max(canvas.height / 2, 360);
+    const xPositionYes = canvas.width * 3 / 10 ;
+    const xPositionNo = canvas.width * 7 / 10;
     setYesImagePos({ x: xPositionYes, y: yPosition });
     setNoImagePos({ x: xPositionNo, y: yPosition });
 
@@ -86,8 +88,8 @@ function DrawingCanvas({ onYes, onNo }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw images at fixed size without scaling
-      ctx.drawImage(yesImage, yesImagePos.x, yesImagePos.y, IMAGE_SIZE, IMAGE_SIZE);
-      ctx.drawImage(noImage, noImagePos.x, noImagePos.y, IMAGE_SIZE, IMAGE_SIZE);
+      ctx.drawImage(yesImage, yesImagePos.x - IMAGE_SIZE / 2, yesImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
+      ctx.drawImage(noImage, noImagePos.x - IMAGE_SIZE / 2, noImagePos.y - IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
     }
   };
 
@@ -105,7 +107,8 @@ function DrawingCanvas({ onYes, onNo }) {
     }
   }, [context, yesImage, noImage, yesImagePos, noImagePos]);
 
-  const getCoordinates = (e) => {
+  // tells you where your cursor currently is drawing
+  const getDrawingCoordinates = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     if (e.touches) {
@@ -134,17 +137,24 @@ function DrawingCanvas({ onYes, onNo }) {
       const { x, y } = getCoordinates(e);
       context.beginPath();
       context.moveTo(x, y);
+
+      // set drawing state
       setDrawing(true);
       setIntersected(false);
       setCurrentPath([]);
       setCurrentPos({ x: x, y: y });
+
+      // set start path state here
+      if (getDistance({ x: x, y: y }, yesImagePos)) {
+
+      }
     }
   };
 
   const draw = (e) => {
     if (!drawing || !context) return;
 
-    const { x, y } = getCoordinates(e);
+    const { x, y } = getDrawingCoordinates(e);
     context.strokeStyle = COLOUR;
     context.lineWidth = LINEWIDTH;
     context.lineTo(x, y);
