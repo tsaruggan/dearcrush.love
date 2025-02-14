@@ -11,7 +11,7 @@ function DrawingCanvas({ onYes }) {
   const [currentPos, setCurrentPos] = useState(null);
   const COLOUR = "brown";
   const LINEWIDTH = 3;
-  const IMAGE_SIZE = 100; // dimension of yes/no image
+  const IMAGE_SIZE = 65; // dimension of yes/no image
   const GIF_SIZE = 360; // max height of before gif
   const GIF_PADDING = 24; // padding above before gif
 
@@ -239,7 +239,7 @@ function DrawingCanvas({ onYes }) {
     }
 
     let newNoImagePos = randomizeCoordinates();
-    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.50 || (getDistance(newNoImagePos, noImagePos) <= IMAGE_SIZE * 1.25)) {
+    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.50 || (getDistance(newNoImagePos, noImagePos) <= IMAGE_SIZE * 1.50)) {
       newNoImagePos = randomizeCoordinates();
     }
 
