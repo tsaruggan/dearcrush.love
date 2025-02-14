@@ -234,12 +234,12 @@ function DrawingCanvas({ onYes }) {
 
     const randomizeCoordinates = () => {
       let randomX = Math.random() * (canvas.width - IMAGE_SIZE) + IMAGE_SIZE / 2;
-      let randomY = Math.random() * (canvas.height - GIF_SIZE - GIF_PADDING - IMAGE_SIZE) + GIF_SIZE + GIF_PADDING;
+      let randomY = Math.random() * (canvas.height - GIF_SIZE - GIF_PADDING - 1.5 * IMAGE_SIZE) + GIF_SIZE + GIF_PADDING;
       return { x: randomX, y: randomY };
     }
 
     let newNoImagePos = randomizeCoordinates();
-    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.50 || (getDistance(newNoImagePos, noImagePos) <= IMAGE_SIZE * 1.50)) {
+    while (getDistance(newNoImagePos, yesImagePos) <= IMAGE_SIZE * 1.35 || (getDistance(newNoImagePos, noImagePos) <= IMAGE_SIZE * 1.35)) {
       newNoImagePos = randomizeCoordinates();
     }
 
