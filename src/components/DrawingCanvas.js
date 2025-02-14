@@ -159,7 +159,6 @@ function DrawingCanvas({ onYes }) {
 
   const draw = (e) => {
     if (!drawing || !context) return;
-    // console.log("drawing");
 
     const { x, y } = getDrawingCoordinates(e);
     context.strokeStyle = COLOUR;
@@ -188,6 +187,7 @@ function DrawingCanvas({ onYes }) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawImages(ctx);  // Redraw images after clearing
+    setDrawing(false);
     setCurrentPath([]);
   };
 
@@ -249,7 +249,7 @@ function DrawingCanvas({ onYes }) {
         onTouchCancel={endDrawing}
         onMouseDown={startDrawing}
         onMouseMove={draw}
-        onMouseUp={endDrawing}
+        onMouseUp={clearDrawing}
         onMouseOut={endDrawing}
         style={{
           touchAction: 'none',
