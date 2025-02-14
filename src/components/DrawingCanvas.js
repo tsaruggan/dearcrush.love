@@ -13,7 +13,8 @@ function DrawingCanvas({ onYes }) {
   const COLOUR = "brown";
   const LINEWIDTH = 3;
   const IMAGE_SIZE = 125; // dimension of yes/no image
-  const GIF_SIZE = 360;
+  const GIF_SIZE = 360; // max height of before gif
+  const GIF_PADDING = 24; // padding above before gif
 
   // states corresponding to whether yes or no are circled
   const [circledYes, setCircledYes] = useState(false);
@@ -68,7 +69,7 @@ function DrawingCanvas({ onYes }) {
     canvas.height = window.innerHeight;
 
     // Set initial positions
-    const yPosition = Math.max(canvas.height / 2, GIF_SIZE + IMAGE_SIZE / 2);
+    const yPosition = Math.max(canvas.height / 2, GIF_SIZE + GIF_PADDING + IMAGE_SIZE / 2);
     const xPositionYes = canvas.width * 3 / 10 ;
     const xPositionNo = canvas.width * 7 / 10;
     setYesImagePos({ x: xPositionYes, y: yPosition });
@@ -237,7 +238,7 @@ function DrawingCanvas({ onYes }) {
 
     const randomizeCoordinates = () => {
       let randomX = Math.random() * (canvas.width - IMAGE_SIZE) + IMAGE_SIZE / 2;
-      let randomY = Math.random() * (canvas.height - GIF_SIZE - IMAGE_SIZE / 2) + GIF_SIZE;
+      let randomY = Math.random() * (canvas.height - GIF_SIZE - GIF_PADDING - IMAGE_SIZE / 2) + GIF_SIZE + GIF_PADDING;
       return { x: randomX, y: randomY };
     }
 
