@@ -2,26 +2,14 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Image from 'next/image'
 import styles from "@/styles/Home.module.css";
-// import styles from "@/styles/Home.module.css";
 
 import Meta from '../../components/Meta';
 import DrawingCanvas from '../../components/DrawingCanvas';
 
 import beforeGif from '../../../public/assets/2025/bee_my_valentine.gif'
 import afterGif from '../../../public/assets/2025/yipee_bee.gif'
-import circleOne from '../../../public/assets/2025/circle-one.png'
 
-import { Comfortaa } from "next/font/google";
 import { useState } from "react";
-
-const messages = [
-  "you're as sweet as honey",
-  "you're my queen bee",
-  "ooof...\nthat stings",
-  "you are bee-you-tiful"
-];
-
-const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Home() {
     const [circledYes, setCircledYes] = useState(false);
