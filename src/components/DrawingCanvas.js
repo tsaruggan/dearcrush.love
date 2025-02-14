@@ -27,7 +27,7 @@ function DrawingCanvas({ onYes }) {
   const YES_ALIGN_THRESHOLD = IMAGE_SIZE * 0.5; // threshold for aligning circle centre
   const NO_ALIGN_THRESHOLD = IMAGE_SIZE; 
   const YES_MIN_PATH = IMAGE_SIZE * 0.2; // minimum length of path to be a circle
-  const NO_MIN_PATH = IMAGE_SIZE * 0.3; // minimum length of path to be a circle
+  const NO_MIN_PATH = IMAGE_SIZE * 0.2; // minimum length of path to be a circle
 
   // yes / no image positioning
   const yesImageSrc = '/assets/2025/yes.png';
